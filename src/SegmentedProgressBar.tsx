@@ -2,7 +2,7 @@ import { createElement, ReactElement, ReactNode } from "react";
 import { View } from "react-native";
 import { ValueStatus } from "mendix";
 import { Style } from "@mendix/pluggable-widgets-tools";
-import { useLayout } from "@react-native-community/hooks/lib/useLayout";
+import useLayout from "./hooks/useLayout";
 
 import { SegmentedProgressBarProps } from "../typings/SegmentedProgressBarProps";
 
@@ -15,7 +15,7 @@ export interface ProgressbarObject {
 
 const SegmentedProgressBar = (props: SegmentedProgressBarProps<Style>): ReactNode => {
     const { height, borderRadius, sourceJSON } = props;
-    const { onLayout, ...layout } = useLayout();
+    const { onLayout, layout } = useLayout();
 
     let objList: ReactElement[] = [];
 

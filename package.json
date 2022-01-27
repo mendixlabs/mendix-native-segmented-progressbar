@@ -38,8 +38,5 @@
     "@types/big.js": "^6.0.2",
     "@types/react": "~17.0.1",
     "@types/react-native": "~0.63.52"
-  },
-  "dependencies": {
-    "@react-native-community/hooks": "^2.8.1"
   }
 }
