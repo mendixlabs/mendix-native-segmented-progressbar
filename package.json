@@ -4,7 +4,16 @@
   "version": "1.0.0",
   "description": "My widget description",
   "copyright": "2020 Mendix Technology BV",
-  "author": "Kshitij",
+  "author": {
+    "name": "Kshitij Karandikar",
+    "email": "Kshitij.Karandikar@mendix.com"
+  },
+  "contributors": [
+    {
+      "name": "Jelte Lagendijk",
+      "email": "Jelte.Lagendijk@mendix.com"
+    }
+  ],
   "engines": {
     "node": ">=12"
   },
@@ -22,7 +31,7 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/Kshitij/segmentedprogressbar/issues"
+    "url": "https://github.com/mendixlabs/mendix-native-segmented-progressbar/issues"
   },
   "devDependencies": {
     "@mendix/pluggable-widgets-tools": "^9.0.0",
