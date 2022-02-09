@@ -1,19 +1,18 @@
 import { ReactElement, createElement, Fragment } from "react";
-import { View } from "react-native";
-import { ProgressbarObjectWithWidth } from "../SegmentedProgressBar";
+import { View, ViewStyle } from "react-native";
+import { ProgressbarObjectWithWidth } from "../util/objects";
 
 const ObjectList = ({
     objects,
-    height,
-    borderRadius
+    objectStyle
 }: {
     objects: ProgressbarObjectWithWidth[];
-    height: number;
-    borderRadius: number;
+    objectStyle: ViewStyle;
 }): ReactElement => {
     if (!objects) {
         return <View />;
     }
+    const { height, borderRadius } = objectStyle;
     return (
         <Fragment>
             {objects.map((obj, index) => (

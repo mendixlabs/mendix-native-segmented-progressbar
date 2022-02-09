@@ -4,14 +4,17 @@
  * @author Mendix UI Content Team
  */
 import { CSSProperties } from "react";
-import { DynamicValue } from "mendix";
+import { DynamicValue, ListValue, ListExpressionValue } from "mendix";
+import { Big } from "big.js";
 
 export interface SegmentedProgressBarProps<Style> {
     name: string;
     style: Style[];
-    sourceJSON: DynamicValue<string>;
-    height: number;
-    borderRadius: number;
+    sourceJSON?: DynamicValue<string>;
+    sourceObjects?: ListValue;
+    sourceObjectValue?: ListExpressionValue<Big>;
+    sourceObjectColor?: ListExpressionValue<string>;
+    sourceObjectSort?: ListExpressionValue<Big>;
 }
 
 export interface SegmentedProgressBarPreviewProps {
@@ -20,6 +23,8 @@ export interface SegmentedProgressBarPreviewProps {
     styleObject?: CSSProperties;
     readOnly: boolean;
     sourceJSON: string;
-    height: number | null;
-    borderRadius: number | null;
+    sourceObjects: {} | { type: string } | null;
+    sourceObjectValue: string;
+    sourceObjectColor: string;
+    sourceObjectSort: string;
 }

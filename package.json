@@ -2,25 +2,20 @@
   "name": "segmentedprogressbar",
   "widgetName": "SegmentedProgressBar",
   "version": "1.0.0",
+  "private": true,
   "description": "My widget description",
   "copyright": "2020 Mendix Technology BV",
   "author": {
-    "name": "Kshitij Karandikar",
-    "email": "Kshitij.Karandikar@mendix.com"
+    "name": "Jelte Lagendijk",
+    "email": "Jelte.Lagendijk@mendix.com"
   },
-  "contributors": [
-    {
-      "name": "Jelte Lagendijk",
-      "email": "Jelte.Lagendijk@mendix.com"
-    }
-  ],
   "engines": {
     "node": ">=12"
   },
   "config": {
     "projectPath": "./tests/testProject/"
   },
-  "packagePath": "mendix",
+  "packagePath": "com.mendixlabs.widget.native",
   "scripts": {
     "start": "pluggable-widgets-tools start:native",
     "build": "pluggable-widgets-tools build:native",
@@ -31,7 +26,7 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/mendixlabs/mendix-native-segmented-progressbar/issues"
+    "url": "https://github.com/JelteMX/mendix-native-segmented-progressbar/issues"
   },
   "devDependencies": {
     "@mendix/pluggable-widgets-tools": "^9.0.0",

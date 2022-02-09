@@ -14,6 +14,27 @@ TBD
 
 TBD
 
+## Styling
+
+Styling is done in normal [Mendix Native Styling](https://docs.mendix.com/refguide/native-styling-refguide) procedures.
+
+Class: `com_mendixlabs_widget_native_segmentedprogressbar_SegmentedProgressBar`
+
+Default styling:
+
+```js
+export const com_mendixlabs_widget_native_segmentedprogressbar_SegmentedProgressBar = {
+    container: {
+        flexDirection: "row",   // We need this to render the bars horizontally
+        width: "100%"           // We set the width to the maximum of the container
+    },
+    item: {
+        height: 20,             // Height of the progressbar
+        borderRadius: 20        // Borderradius of left- and right-most item
+    }
+};
+```
+
 ## Issues, suggestions and feature requests
 
 TBD
