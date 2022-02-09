@@ -1,15 +1,19 @@
-import { createElement, ReactElement, ReactNode } from "react";
+import { createElement, ReactNode, useMemo } from "react";
 import { View } from "react-native";
 import { ValueStatus } from "mendix";
 import { Style } from "@mendix/pluggable-widgets-tools";
 import { useLayout } from "@react-native-community/hooks/lib/useLayout";
 
 import { SegmentedProgressBarProps } from "../typings/SegmentedProgressBarProps";
+import ObjectList from "./components/ObjectList";
 
 export interface ProgressbarObject {
     value: number;
-    sortOrder: number;
+    sortOrder?: number;
     color: string;
+}
+
+export interface ProgressbarObjectWithWidth extends ProgressbarObject {
     width: number;
 }
 
@@ -17,42 +21,31 @@ const SegmentedProgressBar = (props: SegmentedProgressBarProps<Style>): ReactNod
     const { height, borderRadius, sourceJSON } = props;
     const { onLayout, ...layout } = useLayout();
 
-    let objList: ReactElement[] = [];
+    const objectsWithWidth = useMemo(() => {
+        if (sourceJSON.status === ValueStatus.Loading || !sourceJSON.value || !layout || layout.width === 0) {
+            return [];
+        } else if (sourceJSON.status === ValueStatus.Available && sourceJSON.value) {
+            try {
+                const parsed = (JSON.parse(sourceJSON.value) as ProgressbarObject[]).sort(
+                    ({ sortOrder: sortOrderA = 0 }, { sortOrder: sortOrderB = 0 }) => sortOrderA - sortOrderB
+                );
+                const maxValue = parsed.reduce((totalValue, currentObject) => totalValue + currentObject.value, 0);
+                const list: ProgressbarObjectWithWidth[] = parsed.map(obj => ({
+                    ...obj,
+                    width: (layout.width * obj.value) / maxValue
+                }));
 
-    if (sourceJSON.status === ValueStatus.Loading || !sourceJSON.value || !layout || layout.width === 0) {
-        objList = [];
-    } else if (sourceJSON.status === ValueStatus.Available && sourceJSON.value) {
-        try {
-            const parsed = (JSON.parse(sourceJSON.value) as ProgressbarObject[]).sort((a, b) => {
-                return a.sortOrder - b.sortOrder;
-            });
-            const maxValue = parsed.reduce((totalValue, currentObject) => totalValue + currentObject.value, 0);
-            const objectsWithWidth = parsed.map(obj => ({ ...obj, width: (layout.width * obj.value) / maxValue }));
-
-            objList = objectsWithWidth.map((obj, index) => (
-                <View
-                    key={obj.sortOrder}
-                    style={{
-                        height,
-                        width: obj.width,
-                        backgroundColor: obj.color,
-
-                        borderTopLeftRadius: index === 0 ? borderRadius : 0,
-                        borderBottomLeftRadius: index === 0 ? borderRadius : 0,
-
-                        borderTopRightRadius: index === objectsWithWidth.length - 1 ? borderRadius : 0,
-                        borderBottomRightRadius: index === objectsWithWidth.length - 1 ? borderRadius : 0
-                    }}
-                />
-            ));
-        } catch (error) {
-            console.warn(error);
+                return list;
+            } catch (error) {
+                console.warn(error);
+            }
         }
-    }
+        return [];
+    }, [layout, sourceJSON.status, sourceJSON.value]);
 
     return (
         <View onLayout={onLayout} style={{ flexDirection: "row", width: "100%" }}>
-            {objList}
+            <ObjectList objects={objectsWithWidth} borderRadius={borderRadius} height={height} />
         </View>
     );
 };
