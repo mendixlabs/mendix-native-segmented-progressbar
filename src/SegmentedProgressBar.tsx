@@ -8,7 +8,12 @@ import { SegmentedProgressBarProps } from "../typings/SegmentedProgressBarProps"
 import { CustomStyle, defaultContentRendererStyle } from "./ui/style";
 
 import ObjectList from "./components/ObjectList";
-import { createProgressBarObjectsWithWidth, ProgressbarObject, sortOrderFunc } from "./util/objects";
+import {
+    createProgressBarObjectsWithWidth,
+    ProgressbarObject,
+    ProgressbarObjectWithWidth,
+    sortOrderFunc
+} from "./util/objects";
 
 const SegmentedProgressBar = ({
     sourceJSON,
@@ -16,6 +21,7 @@ const SegmentedProgressBar = ({
     sourceObjectColor,
     sourceObjectSort,
     sourceObjectValue,
+    onClickElementAction,
     style
 }: SegmentedProgressBarProps<CustomStyle>): ReactNode => {
     const styles = mergeNativeStyles(defaultContentRendererStyle, style);
@@ -50,7 +56,8 @@ const SegmentedProgressBar = ({
                 .map(object => {
                     const progressBarObject: ProgressbarObject = {
                         value: sourceObjectValue.get(object).value?.toNumber() || 0,
-                        color: sourceObjectColor.get(object).value || ""
+                        color: sourceObjectColor.get(object).value || "",
+                        mxObject: object
                     };
                     const sort = sourceObjectSort ? sourceObjectSort.get(object).value : null;
                     if (sort !== null) {
@@ -66,9 +73,23 @@ const SegmentedProgressBar = ({
         return [];
     }, [layout, sourceJSON, sourceObjectColor, sourceObjectSort, sourceObjectValue, sourceObjects]);
 
+    const onClick = (obj: ProgressbarObjectWithWidth): void => {
+        if (obj && obj.mxObject && onClickElementAction) {
+            const action = onClickElementAction.get(obj.mxObject);
+            if (action && action.canExecute && !action.isExecuting) {
+                action.execute();
+            }
+        }
+    };
+
     return (
         <View onLayout={onLayout} style={styles.container}>
-            <ObjectList objects={objectsWithWidth} objectStyle={styles.item} />
+            <ObjectList
+                objects={objectsWithWidth}
+                objectStyle={styles.item}
+                onClick={onClick}
+                hasClickAction={typeof onClickElementAction !== "undefined"}
+            />
         </View>
     );
 };

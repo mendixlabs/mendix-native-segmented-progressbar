@@ -55,5 +55,13 @@ Example: '[{"value": 12, "color": "#123456", "sortOrder": 1}, {"value": 42, "col
             </propertyGroup>
 
         </propertyGroup>
+
+        <!-- Events -->
+        <propertyGroup caption="Events">
+            <property key="onClickElementAction" type="action" required="false" dataSource="sourceObjects">
+                <caption>On Click</caption>
+                <description>This only works with Scenario 2 (Objects)</description>
+            </property>
+        </propertyGroup>
     </properties>
 </widget>

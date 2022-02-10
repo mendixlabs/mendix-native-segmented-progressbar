@@ -1,7 +1,10 @@
+import { ObjectItem } from "mendix";
+
 export interface ProgressbarObject {
     value: number;
     sortOrder?: number;
     color: string;
+    mxObject?: ObjectItem;
 }
 
 export interface ProgressbarObjectWithWidth extends ProgressbarObject {
