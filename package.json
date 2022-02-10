@@ -9,6 +9,12 @@
     "name": "Jelte Lagendijk",
     "email": "Jelte.Lagendijk@mendix.com"
   },
+  "contributors": [
+    {
+      "name": "Kshitij Karandikar",
+      "email": "Kshitij.Karandikar@mendix.com"
+    }
+  ],
   "engines": {
     "node": ">=12"
   },

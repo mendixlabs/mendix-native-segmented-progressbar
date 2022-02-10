@@ -8,7 +8,9 @@
 
 ![AppStoreIcon](/assets/AppStoreIcon.png)
 
-Show a segmented progressbar in your Mendix Native Mobile app
+Show a segmented progressbar in your Mendix Native Mobile app.
+
+> Special thanks to [Kshitij Karandikar](https://developer.mendixcloud.com/link/profile/overview/249431) ([Github](https://github.com/mx-kshitij)) for providing the initial idea &amp; version!
 
 ## Features
 
