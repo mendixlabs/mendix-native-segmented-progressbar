@@ -2,17 +2,46 @@
 [![Support](https://img.shields.io/badge/Support-Community%20(no%20active%20support)-orange.svg)](https://docs.mendix.com/developerportal/app-store/app-store-content-support)
 [![Studio](https://img.shields.io/badge/Studio%20version-9.0%2B-blue.svg)](https://appstore.home.mendix.com/link/modeler/)
 
-# Segmented Progress Bar widget
+# Mendix Native Segmented Progress Bar
+
+![AppStoreIcon](/assets/AppStoreIcon.png)
 
 Show a segmented progressbar in your Mendix Native Mobile app
 
 ## Features
 
-TBD
+- Show a segmented progressbar with multiple segments
+- Can use a JSON String or Object List as Datasource
+- Styling can be customized by using standard Mendix Native Styling
+- On Click events for a segment
 
 ## Usage
 
-TBD
+### Data
+#### Scenario 1 : JSON
+
+- Use the **JSON Source** String to show a progress bar. This has to be a proper JSON array, where objects contain the following key-values:
+
+```javascript
+[
+    {
+        "value": 10         // this is the numeric value, used to determine the size (the widget calculates the total value and sizes accordingly)
+        "color": "#FF0000"  // HEX Color
+        "sortOrder": 0      // Determine the sorting from left to right (counting up)
+    },
+...
+]
+```
+
+#### Scenario 2 : Objects
+
+- Define the dataSource of objects (for example from the Database)
+- **Value** & **Color** are both mandatory
+- **Sort** is optional. If you do not define this, it will use the order set by the dataSource
+
+### Events
+
+- When using Scenario 2 (Objects), you can define an onClick Action for a segment. The mendix object will be passed on as an input parameter.
 
 ## Styling
 
@@ -24,11 +53,11 @@ Default styling:
 
 ```js
 export const com_mendixlabs_widget_native_segmentedprogressbar_SegmentedProgressBar = {
-    container: {
+    container: {                // ViewStyle properties
         flexDirection: "row",   // We need this to render the bars horizontally
         width: "100%"           // We set the width to the maximum of the container
     },
-    item: {
+    item: {                     // ViewStyle properties
         height: 20,             // Height of the progressbar
         borderRadius: 20        // Borderradius of left- and right-most item
     }
@@ -37,7 +66,9 @@ export const com_mendixlabs_widget_native_segmentedprogressbar_SegmentedProgress
 
 ## Issues, suggestions and feature requests
 
-TBD
+> This widget is **NOT** officially supported by Mendix
+
+Report your issues on Github, see [here](https://github.com/JelteMX/mendix-native-segmented-progressbar/issues)
 
 ## Development and contribution
 
