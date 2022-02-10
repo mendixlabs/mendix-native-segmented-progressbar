@@ -1,7 +1,6 @@
 import { createElement, ReactNode, useMemo } from "react";
 import { View } from "react-native";
 import { ValueStatus } from "mendix";
-import { useLayout } from "@react-native-community/hooks/lib/useLayout";
 import { mergeNativeStyles } from "@mendix/pluggable-widgets-tools";
 
 import { SegmentedProgressBarProps } from "../typings/SegmentedProgressBarProps";
@@ -14,6 +13,7 @@ import {
     ProgressbarObjectWithWidth,
     sortOrderFunc
 } from "./util/objects";
+import useLayout from "./hooks/useLayout";
 
 const SegmentedProgressBar = ({
     sourceJSON,
@@ -26,7 +26,7 @@ const SegmentedProgressBar = ({
 }: SegmentedProgressBarProps<CustomStyle>): ReactNode => {
     const styles = mergeNativeStyles(defaultContentRendererStyle, style);
 
-    const { onLayout, ...layout } = useLayout();
+    const { onLayout, layout } = useLayout();
 
     const objectsWithWidth = useMemo(() => {
         if (!layout || layout.width === 0) {
