@@ -1,31 +1,60 @@
 import { ReactElement, createElement, Fragment } from "react";
 import { TouchableWithoutFeedback, View, ViewStyle } from "react-native";
+import { TypeProgressBarEnum } from "../../typings/SegmentedProgressBarProps";
 import { CustomStyle } from "../ui/style";
-import { ProgressbarObjectWithWidth } from "../util/objects";
+import { ProgressbarObjectWithSize } from "../util/objects";
 
 const ObjectList = ({
     objects,
     styles,
-    onClick
+    onClick,
+    type
 }: {
-    objects: ProgressbarObjectWithWidth[];
+    objects: ProgressbarObjectWithSize[];
     styles: CustomStyle;
-    onClick: (obj: ProgressbarObjectWithWidth) => void;
+    onClick: (obj: ProgressbarObjectWithSize) => void;
     hasClickAction?: boolean;
+    type: TypeProgressBarEnum;
 }): ReactElement => {
     if (!objects) {
         return <View />;
     }
-    const { height, borderRadius } = styles.item;
+
     return (
         <Fragment>
             {objects.map((obj, index) => {
                 const itemStyle: ViewStyle =
-                    index === 0
-                        ? styles.leftMostItem
-                        : index === objects.length - 1
-                        ? styles.rightMostItem
-                        : styles.middleItem;
+                    index === 0 ? styles.firstItem : index === objects.length - 1 ? styles.lastItem : styles.middleItem;
+                const colorStyle: ViewStyle = {
+                    backgroundColor: obj.color
+                };
+                const sizeStyle: ViewStyle =
+                    type === "horizontal"
+                        ? {
+                              height: styles.item.height,
+                              width: obj._size
+                          }
+                        : {
+                              height: obj._size,
+                              width: styles.item.width
+                          };
+                const borderRadiusStyle: ViewStyle =
+                    type === "horizontal"
+                        ? {
+                              borderTopLeftRadius: index === 0 ? styles.item.borderRadius : 0,
+                              borderBottomLeftRadius: index === 0 ? styles.item.borderRadius : 0,
+
+                              borderTopRightRadius: index === objects.length - 1 ? styles.item.borderRadius : 0,
+                              borderBottomRightRadius: index === objects.length - 1 ? styles.item.borderRadius : 0
+                          }
+                        : {
+                              borderTopLeftRadius: index === 0 ? styles.item.borderRadius : 0,
+                              borderTopRightRadius: index === 0 ? styles.item.borderRadius : 0,
+
+                              borderBottomLeftRadius: index === objects.length - 1 ? styles.item.borderRadius : 0,
+                              borderBottomRightRadius: index === objects.length - 1 ? styles.item.borderRadius : 0
+                          };
+
                 return (
                     <TouchableWithoutFeedback
                         key={`${
@@ -35,16 +64,9 @@ const ObjectList = ({
                     >
                         <View
                             style={{
-                                height,
-                                width: obj.width,
-                                backgroundColor: obj.color,
-
-                                borderTopLeftRadius: index === 0 ? borderRadius : 0,
-                                borderBottomLeftRadius: index === 0 ? borderRadius : 0,
-
-                                borderTopRightRadius: index === objects.length - 1 ? borderRadius : 0,
-                                borderBottomRightRadius: index === objects.length - 1 ? borderRadius : 0,
-
+                                ...sizeStyle,
+                                ...borderRadiusStyle,
+                                ...colorStyle,
                                 ...itemStyle
                             }}
                         />

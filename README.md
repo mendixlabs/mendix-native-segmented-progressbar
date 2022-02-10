@@ -11,6 +11,7 @@ Show a segmented progressbar in your Mendix Native Mobile app
 ## Features
 
 - Show a segmented progressbar with multiple segments
+- Render your progress bar horizontal or vertical
 - Can use a JSON String or Object List as Datasource
 - Styling can be customized by using standard Mendix Native Styling
 - On Click events for a segment
@@ -27,7 +28,7 @@ Show a segmented progressbar in your Mendix Native Mobile app
     {
         "value": 10         // this is the numeric value, used to determine the size (the widget calculates the total value and sizes accordingly)
         "color": "#FF0000"  // HEX Color
-        "sortOrder": 0      // Determine the sorting from left to right (counting up)
+        "sortOrder": 0      // Determine the sorting
     },
 ...
 ]
@@ -43,6 +44,9 @@ Show a segmented progressbar in your Mendix Native Mobile app
 
 - When using Scenario 2 (Objects), you can define an onClick Action for a segment. The mendix object will be passed on as an input parameter.
 
+### UI
+
+- You can set the rendering of the progress bar to either horizontal or vertical.
 ## Styling
 
 Styling is done in normal [Mendix Native Styling](https://docs.mendix.com/refguide/native-styling-refguide) procedures.
@@ -53,16 +57,22 @@ Default styling:
 
 ```js
 export const com_mendixlabs_widget_native_segmentedprogressbar_SegmentedProgressBar = {
-    container: {                // ViewStyle properties
+    // ViewStyle properties for direction = "horizontal"
+    container: {
         flexDirection: "row",   // We need this to render the bars horizontally
         width: "100%"           // We set the width to the maximum of the container
     },
-    item: {                     // ViewStyle properties that control all segments
-        height: 20,             // Height of the progressbar
-        borderRadius: 20        // Borderradius of left- and right-most item
+    containerVertical: {
+        flexDirection: "column",// We need this to render the bars vertically
+        height: "100%"          // We set the height to the maximum of the container
     },
-    leftMostItem: {},           // ViewStyle properties for left most segment
-    rightMostItem: {},          // ViewStyle properties for right most segment
+    item: {                     // ViewStyle properties that control all segments
+        height: 20,             // Height of the progressbar (direction = "horizontal")
+        width: 20,              // Width of the progressbar (direction = "vertical")
+        borderRadius: 20        // Borderradius of first and last item
+    },
+    firstItem: {},              // ViewStyle properties for first segment (left when "horizontal", top when "vertical")
+    lastItem: {},               // ViewStyle properties for last segment (right when "horizontal", bottom when "vertical")
     middleItem: {}              // ViewStyle properties for middle segments
 };
 ```

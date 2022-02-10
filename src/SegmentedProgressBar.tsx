@@ -8,9 +8,9 @@ import { CustomStyle, defaultContentRendererStyle } from "./ui/style";
 
 import ObjectList from "./components/ObjectList";
 import {
-    createProgressBarObjectsWithWidth,
+    createProgressBarObjectsWithSize,
     ProgressbarObject,
-    ProgressbarObjectWithWidth,
+    ProgressbarObjectWithSize,
     sortOrderFunc
 } from "./util/objects";
 import useLayout from "./hooks/useLayout";
@@ -22,14 +22,17 @@ const SegmentedProgressBar = ({
     sourceObjectSort,
     sourceObjectValue,
     onClickElementAction,
+    typeProgressBar,
     style
 }: SegmentedProgressBarProps<CustomStyle>): ReactNode => {
     const styles = mergeNativeStyles(defaultContentRendererStyle, style);
 
     const { onLayout, layout } = useLayout();
+    const sizeNum = typeProgressBar === "horizontal" ? layout.width : layout.height;
+    const containerStyle = typeProgressBar === "horizontal" ? styles.container : styles.containerVertical;
 
-    const objectsWithWidth = useMemo(() => {
-        if (!layout || layout.width === 0) {
+    const objectsWithSize = useMemo(() => {
+        if (sizeNum === 0) {
             return [];
         }
 
@@ -39,7 +42,7 @@ const SegmentedProgressBar = ({
             try {
                 const parsed = (JSON.parse(sourceJSON.value) as ProgressbarObject[]).sort(sortOrderFunc);
 
-                return createProgressBarObjectsWithWidth(parsed, layout.width);
+                return createProgressBarObjectsWithSize(parsed, sizeNum);
             } catch (error) {
                 console.warn(error);
             }
@@ -67,13 +70,13 @@ const SegmentedProgressBar = ({
                 })
                 .sort(sortOrderFunc);
 
-            return createProgressBarObjectsWithWidth(objects, layout.width);
+            return createProgressBarObjectsWithSize(objects, sizeNum);
         }
 
         return [];
-    }, [layout, sourceJSON, sourceObjectColor, sourceObjectSort, sourceObjectValue, sourceObjects]);
+    }, [sizeNum, sourceJSON, sourceObjectColor, sourceObjectSort, sourceObjectValue, sourceObjects]);
 
-    const onClick = (obj: ProgressbarObjectWithWidth): void => {
+    const onClick = (obj: ProgressbarObjectWithSize): void => {
         if (obj && obj.mxObject && onClickElementAction) {
             const action = onClickElementAction.get(obj.mxObject);
             if (action && action.canExecute && !action.isExecuting) {
@@ -83,11 +86,12 @@ const SegmentedProgressBar = ({
     };
 
     return (
-        <View onLayout={onLayout} style={styles.container}>
+        <View onLayout={onLayout} style={containerStyle}>
             <ObjectList
-                objects={objectsWithWidth}
+                objects={objectsWithSize}
                 styles={styles}
                 onClick={onClick}
+                type={typeProgressBar}
                 hasClickAction={typeof onClickElementAction !== "undefined"}
             />
         </View>

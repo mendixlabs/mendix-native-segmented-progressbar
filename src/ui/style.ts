@@ -3,9 +3,10 @@ import { Style } from "@mendix/pluggable-widgets-tools";
 
 export interface CustomStyle extends Style {
     container: ViewStyle;
+    containerVertical: ViewStyle;
     item: ViewStyle;
-    leftMostItem: ViewStyle;
-    rightMostItem: ViewStyle;
+    firstItem: ViewStyle;
+    lastItem: ViewStyle;
     middleItem: ViewStyle;
 }
 
@@ -14,11 +15,16 @@ export const defaultContentRendererStyle: CustomStyle = {
         flexDirection: "row",
         width: "100%"
     },
+    containerVertical: {
+        flexDirection: "column",
+        height: "100%"
+    },
     item: {
         height: 20,
+        width: 20,
         borderRadius: 20
     },
-    leftMostItem: {},
-    rightMostItem: {},
+    firstItem: {},
+    lastItem: {},
     middleItem: {}
 };

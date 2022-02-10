@@ -65,5 +65,17 @@ Example: '[{"value": 12, "color": "#123456", "sortOrder": 1}, {"value": 42, "col
                 <description>This only works with Scenario 2 (Objects)</description>
             </property>
         </propertyGroup>
+
+        <!-- UI -->
+        <propertyGroup caption="UI">
+            <property key="typeProgressBar" type="enumeration" defaultValue="horizontal">
+                <caption>Type</caption>
+                <description>Render the progress bar horizontal or vertical</description>
+                <enumerationValues>
+                     <enumerationValue key="horizontal">horizontal</enumerationValue>
+                     <enumerationValue key="vertical">vertical</enumerationValue>
+                </enumerationValues>
+            </property>
+        </propertyGroup>
     </properties>
 </widget>

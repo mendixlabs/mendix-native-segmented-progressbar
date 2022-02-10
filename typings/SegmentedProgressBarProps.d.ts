@@ -7,6 +7,8 @@ import { CSSProperties } from "react";
 import { DynamicValue, ListValue, ListActionValue, ListExpressionValue } from "mendix";
 import { Big } from "big.js";
 
+export type TypeProgressBarEnum = "horizontal" | "vertical";
+
 export interface SegmentedProgressBarProps<Style> {
     name: string;
     style: Style[];
@@ -16,6 +18,7 @@ export interface SegmentedProgressBarProps<Style> {
     sourceObjectColor?: ListExpressionValue<string>;
     sourceObjectSort?: ListExpressionValue<Big>;
     onClickElementAction?: ListActionValue;
+    typeProgressBar: TypeProgressBarEnum;
 }
 
 export interface SegmentedProgressBarPreviewProps {
@@ -29,4 +32,5 @@ export interface SegmentedProgressBarPreviewProps {
     sourceObjectColor: string;
     sourceObjectSort: string;
     onClickElementAction: {} | null;
+    typeProgressBar: TypeProgressBarEnum;
 }

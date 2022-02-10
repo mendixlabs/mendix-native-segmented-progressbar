@@ -7,21 +7,21 @@ export interface ProgressbarObject {
     mxObject?: ObjectItem;
 }
 
-export interface ProgressbarObjectWithWidth extends ProgressbarObject {
-    width: number;
+export interface ProgressbarObjectWithSize extends ProgressbarObject {
+    _size: number;
 }
 
-export const createProgressBarObjectsWithWidth = (
+export const createProgressBarObjectsWithSize = (
     objectList: ProgressbarObject[],
-    width: number
-): ProgressbarObjectWithWidth[] => {
+    size: number
+): ProgressbarObjectWithSize[] => {
     const maxValue = objectList.reduce((totalValue, currentObject) => totalValue + currentObject.value, 0);
     if (maxValue === 0) {
         return [];
     }
     return objectList.map(obj => ({
         ...obj,
-        width: (width * obj.value) / maxValue
+        _size: (size * obj.value) / maxValue
     }));
 };
 
