@@ -57,10 +57,13 @@ export const com_mendixlabs_widget_native_segmentedprogressbar_SegmentedProgress
         flexDirection: "row",   // We need this to render the bars horizontally
         width: "100%"           // We set the width to the maximum of the container
     },
-    item: {                     // ViewStyle properties
+    item: {                     // ViewStyle properties that control all segments
         height: 20,             // Height of the progressbar
         borderRadius: 20        // Borderradius of left- and right-most item
-    }
+    },
+    leftMostItem: {},           // ViewStyle properties for left most segment
+    rightMostItem: {},          // ViewStyle properties for right most segment
+    middleItem: {}              // ViewStyle properties for middle segments
 };
 ```
 

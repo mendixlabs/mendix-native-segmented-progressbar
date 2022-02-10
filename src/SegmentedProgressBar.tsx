@@ -86,7 +86,7 @@ const SegmentedProgressBar = ({
         <View onLayout={onLayout} style={styles.container}>
             <ObjectList
                 objects={objectsWithWidth}
-                objectStyle={styles.item}
+                styles={styles}
                 onClick={onClick}
                 hasClickAction={typeof onClickElementAction !== "undefined"}
             />

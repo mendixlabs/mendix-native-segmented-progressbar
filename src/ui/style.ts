@@ -4,6 +4,9 @@ import { Style } from "@mendix/pluggable-widgets-tools";
 export interface CustomStyle extends Style {
     container: ViewStyle;
     item: ViewStyle;
+    leftMostItem: ViewStyle;
+    rightMostItem: ViewStyle;
+    middleItem: ViewStyle;
 }
 
 export const defaultContentRendererStyle: CustomStyle = {
@@ -14,5 +17,8 @@ export const defaultContentRendererStyle: CustomStyle = {
     item: {
         height: 20,
         borderRadius: 20
-    }
+    },
+    leftMostItem: {},
+    rightMostItem: {},
+    middleItem: {}
 };
